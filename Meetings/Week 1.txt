@@ -1,0 +1,6 @@
+Discussed research and preparation done over the summer.
+Re-established mutual understanding of project aims and goals.
+Discussed the ideas I had come up with in regards to the physics engine.
+In brief, a model that can accurately predict the state of future frames using data straight from the physics engine itself would be sufficient.
+Stretch goals would be to determine data visually from images of the engine and to re-create images using the predicted data.
+Set goals for Week 1 - Make a 24 week plan, create a mindmap encompassing all my thoughts related to the project, set up version control and software, create a report of what was done over the summer, study the research papers provided.

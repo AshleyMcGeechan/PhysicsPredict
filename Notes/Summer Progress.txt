@@ -1,0 +1,9 @@
+﻿In preparation for my Level 4 Project (Deep Learning for Physics Engine Simulation), over the summer I:
+* Read “Essential Mathematics for Interactive Games.” This gave me an understanding of the mathematical equations behind core physics engine functions like collision detection and force dynamics.
+* Thought about my general approach for the physics system and neural network designs.
+* Researched and experimented with Box2D, the physics engine I will be using for the project. This was not especially in-depth, I set up the test bed and looked at the examples and their code to determine the difficulty of working with the program and if my ideas for the physics engine were feasible.
+* Researched and experimented with Keras, the deep learning API that I will be using for the project. This included doing the official Keras tutorials, learning to do simple Image and Textual Classification problems and Regression problems. I also did some other tutorials where I worked with my own data sets to gain a better understanding of that aspect and learned more about visualising the data for the Evaluation section of the project.
+* Read the literature on Long Short Term Memory and Augmented Recurrent Neural Networks. Did not find computer time to implement them myself but should be able to now that I’m back at university.
+
+
+There is still some research and training I would like to do before getting stuck into the programming aspect of the project but there are no major gaps in my knowledge that will prevent me from working.

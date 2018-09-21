@@ -1,0 +1,24 @@
+Week 1: Research and planning.
+Week 2: Set up physics engine simulation. This will take the form of several circles enclosed by a rectangular box. The circles should move and collide with each other and the box and lose speed on collisions.
+Week 3: Automate simulation for data gathering. The simulation should generate circles with random initial positions and velocities. The positions of the circles should be recorded and saved each frame. Once each circle has come to a stop the simulation should restart.
+Week 4: Design the Tensorflow model. This should take the positions of each circle for two frames as input and should output the new positions of the circles for the next frame. Two frames are used so that the model can calculate velocity.
+Week 5: Implement basic Tensorflow model.
+Week 6: Analyze and format our test data, we should have more than enough by this point.
+Week 7: Train our model and evaluate the results. 
+Week 8: Refine our model and evaluate. 
+Week 9: Refine our model and evaluate.
+Week 10: Working protoype. This prototype should be able to provide sensible outputs. For example it should have no problems with the movements of the circles. Collision may be innacurate but should show signs of progress.
+Week 11: Refine our model and evaluate. At this point we should be trying to pinpoint the sources of innacuracy and resolve them. Once progress on that front stalls we should focus on increasing the speed of the model and reducing the quantity of data needed to train it.
+Week 12: Version 1.0 completed. Completion will be defined by the ability to predict the future state of multiple objects within a useful threshhold of accuracy. 
+Week 13: Begin evaluation. Metrics for evaluation will be accuracy of predictions, the number of frames into the future that useful predictions can be made, the number of objects that can be predicted on simultaneously, the number of properties of the system that can be predicted on, and the time it takes for predictions to be made. The definition of useful will be refined as we get results but for now the minimum acceptable margin of error would be the radius of the circles. Inaccuracy in the predictions will become exponentially worse the further into the future we predict. Another possible metric could involve comparisons to human predictions.
+Week 14: As we evaluate we should work on any minor bugfixes and tweaks that would improve our metrics. This would be the last week for any serious programming efforts.
+Week 15: Visualise our evaluation using Python visualisation and graphing libraries and Jupyter.
+Week 16: Reflect on the overall outcome of the project. Identify flaws in our process and suggest improvements and future work that could be done.
+Week 17: Finish evaluation.
+Week 18: Start work on dissertation. Ideally some amount will have already been written for each chapter while doing the corresponding phase of the project.
+Week 19: Submit as much as possible. This should convey the overall structure and flow of the dissertation but may not include the full extent of the writing.
+Week 20: Implement feedback and submit first full draft. This draft should be a full piece of work but may include poorly thought out or obtuse paragraphs that may need reworked or removed.
+Week 21: Implement feedback and submit second full draft. This draft should be more complete but may include poorly thought out or obtuse sentences that may need reworked or removed.
+Week 22: Implement feedback and submit final draft. At this point everything should be mostly finalised, no sweeping changes should be made and work should be focused on ensuring clarity. Start work on presentation.
+Week 23: Proofread and finish dissertation.
+Week 24: Finish presentation and practice in preparation.
