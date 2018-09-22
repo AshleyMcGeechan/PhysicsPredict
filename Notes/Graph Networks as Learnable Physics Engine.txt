@@ -1,0 +1,9 @@
+﻿* The possible space of a physical system scales exponentially with the number of elements
+* One solution is to define systems in terms of objects and relations like particles and forces
+* To learn these systems we introduce a bias for objects and relation representations
+* This takes the form of graph networks which encode objects as nodes in the graph and relations as edges.
+* The global constants are learned and encoded in the global update function.
+* The network learned to make predictions on seven simulated systems and one real world system
+* The network has no initial knowledge of the physical laws of the system but learns to approximate them by observing the objects and relations.
+* GN based models are most successful when there is commonality between the objects and relations to share.
+* Model does not address the compounding factors of errors across long trajectory predictions.

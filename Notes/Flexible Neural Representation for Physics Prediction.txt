@@ -1,0 +1,14 @@
+﻿* Hierarchical particle based object representation inspired by human understanding of physical dynamics
+* Able to represent both rigid and deformable objects
+* Utilises Hierarchical Relation Network, a neural network based on hierarchical graph convolution to make predictions.
+* HRNs performs better at complex collisions and nonrigid deformations than other neural networks and can generate plausible predictions at long time scales and in large scenes.
+* Humans naturally learns concepts like object permanence, occlusion and deformability and use these concepts intuitively in their perception.
+* Current physics engines are difficult to integrate with learnable systems.
+* The approach used in the Graph Networks paper (for which I’ve done notes for already) is promising but fails at capturing complex collisions, working with objects at different scales simultaneously, and handling non-rigid objects
+* Humans vary the level of detail in their perception naturally, modelling an object in flight as a single point mass and adjusting to take into account its structure and material when these details become relevant such as in a collision
+* This model would represent objects as connected particles that move independently to allow deformation but are attached to each other by pairwise relations to prevent the object falling apart.
+* Challenges with this model include propagation of effects across an object and finding a particle model comparable to human cognition that isn’t computationally infeasible.
+* The solution proposed is the hierarchical graph based object representation that groups particles in a hierarchy that allows for representations in multiple object scales.
+* This model generates plausible trajectories for complex physical interactions over extended time horizons and generalises across a variety of shapes, masses, forces, and material properties, and naturally mirrors human cognitive processes like object permanence.
+* The model is not yet compatible with pixel based computer vision applications and work would need to be done on inferring scene graphs from from visual data that could then be turned into a hierarchical representation.
+* Future areas of expansion would be modelling other materials like cloths, liquids, or gasses, and modelling objects that can shatter or merge.

@@ -1,0 +1,8 @@
+﻿* Simulators for rigid body dynamics are essential for development of robot systems but they are limited due to the discrepancies between them and the real world and do not account for uncertainty.
+* A major source of these discrepancies is a result of the contact forces which are very complex to model and are highly sensitive to changes in the initial conditions.
+* Studies show there are outcomes that current models are completely unable to predict for any choice of parameters, meaning that varying these parameters does not produce a sufficient uncertainty distribution.
+* This study presents a solution to these problems in the form Decoupled Conditional Variational Recurrent Neural Nets.
+* These learn the residual errors made by the analytical model and then can correct its errors and provide uncertainty distributions.
+* Experiments show this model outperforms its competitors, is more data efficient, and generalises better to different shapes.
+* Residual learning bridges the gap between the model and the real life scenario without the need for a hand crafted solution.
+* Being purely data driven there is no enforcement of physics principles causing some predictions to be physically impossible, although in practice these predictions are eliminated with training.

@@ -1,0 +1,9 @@
+﻿* Our understanding of Quantum Physics is based upon our prior understanding of classical mechanics which causes issues like the measurement problem when trying to reconcile the two together.
+* To search for different models of physical mechanics it is theorised we can create one by using a neural network to learn concepts straight from experimental data in an empirical unbiased way.
+* The network learns to turn the data into a representational system and then uses that representation to answer questions.
+* This network has had success at learning physical parameters like the frequency of a pendulum, finding conservation laws, recognizing the number of degrees of freedom in a quantum state, and discovering the heliocentric model of the solar system from the positions of celestial bodies as seen from earth.
+* Most neural networks working with physics problems evaluate on efficiency and quality without thought to what the network actually learned.
+* Models impose structure and a priori knowledge by specifying what data is given to the network and what data is left out and this is biased by our own ideas of what data will be relevant.
+* The network can be seen as an encoder mapping from observations to a representation and a decoder that takes the representation and questions to form answers.
+* The representation the network learns is not imposed upon it although the correct answers it works towards are provided in a supervised way.
+* The network needs a sufficient number of latent neurons to make accurate predictions.
