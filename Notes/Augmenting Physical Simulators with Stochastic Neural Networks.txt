@@ -6,3 +6,6 @@
 * Experiments show this model outperforms its competitors, is more data efficient, and generalises better to different shapes.
 * Residual learning bridges the gap between the model and the real life scenario without the need for a hand crafted solution.
 * Being purely data driven there is no enforcement of physics principles causing some predictions to be physically impossible, although in practice these predictions are eliminated with training.
+
+
+https://arxiv.org/pdf/1808.03246v1.pdf

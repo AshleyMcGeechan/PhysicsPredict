@@ -7,3 +7,6 @@
 * The network can be seen as an encoder mapping from observations to a representation and a decoder that takes the representation and questions to form answers.
 * The representation the network learns is not imposed upon it although the correct answers it works towards are provided in a supervised way.
 * The network needs a sufficient number of latent neurons to make accurate predictions.
+
+
+https://arxiv.org/pdf/1807.10300v1.pdf

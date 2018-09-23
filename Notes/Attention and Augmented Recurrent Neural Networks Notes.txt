@@ -16,3 +16,6 @@
 * The programs are generated one operation at a time and act upon the outputs of previous operations
 * The neural net runs multiple possible operations at once and averages them weighted by the probability that we ran that operation
 * Then we can define a loss function that adjusts these probabilities and trains the neural net to create programs.
+
+
+https://distill.pub/2016/augmented-rnns/

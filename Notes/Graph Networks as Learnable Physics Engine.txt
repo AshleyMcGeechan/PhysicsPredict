@@ -7,3 +7,6 @@
 * The network has no initial knowledge of the physical laws of the system but learns to approximate them by observing the objects and relations.
 * GN based models are most successful when there is commonality between the objects and relations to share.
 * Model does not address the compounding factors of errors across long trajectory predictions.
+
+
+https://arxiv.org/pdf/1806.01242v1.pdf

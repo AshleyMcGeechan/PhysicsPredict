@@ -14,3 +14,6 @@
 * The third gate looks at the updated cell state and decides what the final output should be
 * Variants on LSTMs exist that change what information each gate has access to and each performs differently on different tasks
    * The Gated Recurrent Unit is simpler than a standard LSTM and may be useful for the initial stages of implementation. Specialised models should be looked into if improvement stalls but shouldn’t be needed until the complexity of the simulation increases.
+
+
+http://colah.github.io/posts/2015-08-Understanding-LSTMs/

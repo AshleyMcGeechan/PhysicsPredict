@@ -12,3 +12,6 @@
 * This model generates plausible trajectories for complex physical interactions over extended time horizons and generalises across a variety of shapes, masses, forces, and material properties, and naturally mirrors human cognitive processes like object permanence.
 * The model is not yet compatible with pixel based computer vision applications and work would need to be done on inferring scene graphs from from visual data that could then be turned into a hierarchical representation.
 * Future areas of expansion would be modelling other materials like cloths, liquids, or gasses, and modelling objects that can shatter or merge.
+
+
+https://arxiv.org/pdf/1806.08047v1.pdf
