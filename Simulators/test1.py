@@ -27,19 +27,23 @@ class Test1(Framework):
             fixtures=b2FixtureDef(
                 shape=b2CircleShape(radius=1),
                 density=1.0,
-                friction=5),
-            angularDamping=0.5,
+                friction=20,
+                restitution=0.5),
+            linearDamping=1,
+            angularDamping=2,
             bullet=True,
-            position=(5, 10))
+            position=(10, 10))
 
         self.ball = self.world.CreateDynamicBody(
             fixtures=b2FixtureDef(
                 shape=b2CircleShape(radius=1),
                 density=1.0,
-                friction=5),
-            angularDamping=0.5,
+                friction=20,
+                restitution=0.5),
+            linearDamping=1,
+            angularDamping=2,
             bullet=True,
-            position=(5, 30))
+            position=(10, 30))
 
 
 if __name__ == "__main__":
