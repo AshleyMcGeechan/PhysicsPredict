@@ -1,0 +1,7 @@
+Week 1-2 Status Report:
+Various research papers read and notes taken on them.
+Design diagrams digitized and planning documents written up.
+Version control and environments set up.
+Box2D physics simulation created.
+Data output partially complete.
+Various other documentation.

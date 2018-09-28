@@ -1,0 +1,6 @@
+Week 2 Meeting:
+Discussed the research papers. Graph Networks would be an interesting place to possibly take the project in later stages. Hierarchical Networks out of scope.
+Discussed altering parameters and creating other simulators to generalise the model to more problems and see where the model fails.
+Discussed structuring of the neural network in regards to inputs and outputs and recurrence.
+Discussed visualisation techniques for evaluation e.g feeding outputs back into the simulator for visual recreation and comparison.
+Plan is to have a basic neural network that will support input and output by next week.
