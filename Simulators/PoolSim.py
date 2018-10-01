@@ -10,7 +10,7 @@ from Box2D import (b2Body, b2CircleShape, b2FixtureDef, b2LoopShape, b2PolygonSh
                    b2RevoluteJointDef, b2_pi)
 
 reset = True
-dataTensor = np.array([])
+dataTensor = np.array([], dtype=np.float64)
 simulationCounter = 0
 
 
@@ -79,7 +79,7 @@ class PoolSim(Framework):
             self.world.bodies[2].ApplyLinearImpulse(randForce, self.world.bodies[2].worldCenter, True)
             reset = False
 
-        frame = np.array([])
+        frame = np.array([], dtype=np.float64)
 
         # If any of the balls are in motion set movement to true
         for body in self.world.bodies:
@@ -104,6 +104,8 @@ class PoolSim(Framework):
             # Save data to a numpy file for training the neural net
             f = open('training_data\simulation'+str(simulationCounter)+'.npy', "w")
             np.save(f, dataTensor)
+            g = open('training_data\simulation'+str(simulationCounter)+'.csv', "w")
+            np.savetxt(g, dataTensor.flatten())
             # Save data into a human readable format
             with file('training_data\simulation'+str(simulationCounter)+'.txt', 'w') as outfile:
                 for framenumber, data_slice in enumerate(dataTensor, 1):
