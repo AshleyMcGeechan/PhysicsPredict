@@ -1,0 +1,5 @@
+﻿Week 3 Status Report
+Data gathering is fully automated with each run outputting a file with the x and y positions of each ball on each frame. Average run lasts 400 frames running at 60 frames per second.
+Sample test data of ~50 runs and ~20000 frames generated to test the neural net.
+Data preprocessed into triplet pairs of frames for processing by the neural network.
+Basic naive neural net implemented, taking two frames of data as input, passing through some dense layers and predicting output positions for the next frame. Results reaches around 95% accuracy.

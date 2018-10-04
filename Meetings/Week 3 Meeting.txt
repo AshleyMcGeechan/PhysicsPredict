@@ -1,0 +1,7 @@
+﻿Week 3 Meeting
+Discussed progress from last week - Simulation automation, data gathering and naive neural net implementation completed.
+Discussed the results of the basic neural net and where to go from there.
+Discussed choices in loss functions and metrics.
+Discussed formatting of data in regards to tensor shapes and normalization.
+Plans for next week were to create configuration files and scripts to automate the creation of different complexities of simulation.
+Subsequent weeks would involve creating visualisation techniques to better evaluate the neural network and implementing other neural network designs like LSTM.
