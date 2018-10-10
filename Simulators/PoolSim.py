@@ -17,6 +17,7 @@ simulationCounter = 0
 with open('config.yaml', 'r') as f:
     config = yaml.load(f)
 
+
 class PoolSim(Framework):
 
     # Debug framework information
