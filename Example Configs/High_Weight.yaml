@@ -2,34 +2,34 @@
 
 # The horizontal and vertical lengths of the table walls
 # Try and ensure the number and sizes of balls will be able to fit into the boundaries you give
-tableSize: (20, 40)
+tableSize: [20, 40]
 
 # Ball Properties ---
 # All properties are ranges that the simulation will choose a random value between for each ball
 
 # Number and size of balls
-ballCount: (8, 8)
-ballRadius: (1.0, 1.0)
+ballCount: [8, 8]
+ballRadius: [1.0, 1.0]
 
 # Restitution is the bounciness of the balls
 # 0 being all momentum is lost on collision and 1 being all momentum is conserved on collision
-ballRestitution: (0.5, 0.5)
+ballRestitution: [0.5, 0.5]
 
 # Acts as a gravitational/frictional effect
 # Our main deceleration effect
-ballLinearDamping: (1.0, 1.0)
+ballLinearDamping: [1.0, 1.0]
 
 # Affects weight of balls
 # Used for collisions and impulses
-ballDensity: (20.0, 20.0)
+ballDensity: [2.0, 2.0]
 
 # Range of positions balls can be generated in
 # Provide some small offset so that balls are not generated outside of the boundaries
-ballPositions: ((0.5, 19.5), (0.5, 39.5))
+ballPositions: [[0.5, 19.5], [0.5, 39.5]]
 
 # Each run a random impulse vector is generated with the x and y points between these bounds
 # This impulse is applied to the first ball generated
-impulseBounds: ((-1000, 1000), (-1000, 1000))
+impulseBounds: [[-1000, 1000], [-1000, 1000]]
 
 # Each run outputs files with the name 'filename' + the number of the run
 # Each batch of runs should be given a different filename to avoid data being overwritten
@@ -39,9 +39,9 @@ fileName: High_Weight
 # These are not particularly useful for the purposes of the simulation but are included for completeness
 
 # Deceleration of the spin of balls
-ballAngularDamping: (2.0, 2.0)
+ballAngularDamping: [2.0, 2.0]
 # Frictional effect when balls move along walls
-ballFriction: (10.0, 10.0)
+ballFriction: [10.0, 10.0]
 
 
 # Neural Network ------------------------------------------------------------------------------------------------------

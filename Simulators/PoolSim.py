@@ -14,6 +14,8 @@ reset = True
 dataTensor = np.array([], dtype=np.float64)
 simulationCounter = 0
 
+with open('config.yaml', 'r') as f:
+    config = yaml.load(f)
 
 class PoolSim(Framework):
 
@@ -23,21 +25,18 @@ class PoolSim(Framework):
     bodies = []
     joints = []
 
-    with open('config.yaml', 'r') as f:
-        config = yaml.load(f)
-
     def __init__(self):
         super(PoolSim, self).__init__()
 
         # Initialize world, no gravity as this is a top down view
         world = self.world
         self.world.gravity = (0, 0)
-        ballCount = random.randint(config[ballCount][0], config[ballCount][1])
+        ballCount = random.randint(config['ballCount'][0], config['ballCount'][1])
 
         # Rectangular boundaries representing pool table
         world.CreateBody(
-            shapes=b2LoopShape(vertices=[(0, 0), (0, config[tableSize][1]),
-                                         (config[tableSize][0], config[tableSize][1]), (config[tableSize][0], 0),
+            shapes=b2LoopShape(vertices=[(0, 0), (0, config['tableSize'][1]),
+                                         (config['tableSize'][0], config['tableSize'][1]), (config['tableSize'][0], 0),
                                          ]),
         )
 
@@ -47,18 +46,18 @@ class PoolSim(Framework):
         for i in range(ballCount):
             world.CreateDynamicBody(
                 fixtures=b2FixtureDef(
-                    shape=b2CircleShape(radius=random.uniform(config[ballRadius][0], config[ballRadius][1])),
-                    density=random.uniform(config[ballDensity][0], config[ballDensity][1]),
-                    friction=random.uniform(config[ballFriction][0], config[ballFriction][1]),
-                    restitution=random.uniform(config[ballRestitution][0], config[ballRestitution][1]),
+                    shape=b2CircleShape(radius=random.uniform(config['ballRadius'][0], config['ballRadius'][1])),
+                    density=random.uniform(config['ballDensity'][0], config['ballDensity'][1]),
+                    friction=random.uniform(config['ballFriction'][0], config['ballFriction'][1]),
+                    restitution=random.uniform(config['ballRestitution'][0], config['ballRestitution'][1]),
                 ),
-                linearDamping=random.uniform(config[ballLinearDamping][0], config[ballLinearDamping][1]),
-                angularDamping=random.uniform(config[ballAngularDamping][0], config[ballAngularDamping][1]),
+                linearDamping=random.uniform(config['ballLinearDamping'][0], config['ballLinearDamping'][1]),
+                angularDamping=random.uniform(config['ballAngularDamping'][0], config['ballAngularDamping'][1]),
                 bullet=True,
                 # Slight offset to prevent balls spawning outside of the table
                 # Balls that spawn to close to each other will correct themselves after 1 frame
-                position=(random.uniform(config[ballPostitions][0][0], config[ballPostitions][0][1]),
-                          random.uniform(config[ballPostitions][1][0], config[ballPostitions][1][1])))
+                position=(random.uniform(config['ballPositions'][0][0], config['ballPositions'][0][1]),
+                          random.uniform(config['ballPositions'][1][0], config['ballPositions'][1][1])))
 
     def Step(self, settings):
 
@@ -76,8 +75,8 @@ class PoolSim(Framework):
 
         # Apply random impulse to ball at the start of each iteration
         if reset:
-            randForce = (random.randint(config[impulseBounds][0][0], config[impulseBounds][0][1]),
-                         random.randint(config[impulseBounds][1][0], config[impulseBounds][1][1]))
+            randForce = (random.randint(config['impulseBounds'][0][0], config['impulseBounds'][0][1]),
+                         random.randint(config['impulseBounds'][1][0], config['impulseBounds'][1][1]))
             print(randForce)
             self.world.bodies[2].ApplyLinearImpulse(randForce, self.world.bodies[2].worldCenter, True)
             reset = False
@@ -105,12 +104,12 @@ class PoolSim(Framework):
             # -1 for the unknown quantity of frames in a single iteration
             dataTensor = dataTensor.reshape(-1, 6, 2)
             # Save data to a numpy file for training the neural net
-            f = open('training_data\\' + str(config[fileName]) + str(simulationCounter) + '.npy', "w")
+            f = open('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.npy', "w")
             np.save(f, dataTensor)
-            g = open('training_data\\' + str(config[fileName]) + str(simulationCounter) + '.csv', "w")
+            g = open('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.csv', "w")
             np.savetxt(g, dataTensor.flatten())
             # Save data into a human readable format
-            with file('training_data\\' + str(config[fileName]) + str(simulationCounter) + '.txt', 'w') as outfile:
+            with file('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.txt', 'w') as outfile:
                 for framenumber, data_slice in enumerate(dataTensor, 1):
                     np.savetxt(outfile, data_slice, fmt='%-10.4f', header='x        y')
                     outfile.write('\n# Frame'+str(framenumber)+'\n\n')
@@ -120,8 +119,8 @@ class PoolSim(Framework):
             # Reset positions of balls for new simulation
             for body in self.world.bodies:
                 if body.position != (0, 0):
-                    body.position = (random.uniform(config[ballPostitions][0][0], config[ballPostitions][0][1]),
-                                     random.uniform(config[ballPostitions][1][0], config[ballPostitions][1][1]))
+                    body.position = (random.uniform(config['ballPositions'][0][0], config['ballPositions'][0][1]),
+                                     random.uniform(config['ballPositions'][1][0], config['ballPositions'][1][1]))
 
             # Indicates simulation has reset
             reset = True
