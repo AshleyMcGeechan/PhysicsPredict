@@ -1,0 +1,26 @@
+﻿Week 4 Status Report
+
+
+* Config files created
+   * YAML format
+   * Allows easy editing of all variables related to simulation complexity
+   * Allows you to specify a range of values for randomisation
+   * Simulation code refactored to allow this
+
+
+* Example configs made
+   * Examples span a range of complexity from 1 ball with no friction to 8 balls of random sizes
+   * Further complexity can be added
+   * Can be plugged straight into the simulator
+
+
+* Expanded data set and refined neural network
+   * Dataset now around 50k pairs of frames
+
+
+* Predictor module made
+   * Takes one new simulation run and outputs two simulated runs, one where predictions are made one frame ahead and one where all frames are predicted recursively using the initial 2 frames
+
+
+* Visualiser created
+   * Takes 3 runs (the ones created using the predictor) and visualises them side by side for comparison

@@ -1,0 +1,7 @@
+﻿Week 4 Meeting
+Config files are a success, could be applied to neural network models.
+Discussed putting limits on the neural network, conclusion was no limits on data set or training time. Finished model should be fast enough to make live predictions.
+Discussed implementation of an LSTM.
+Need to implement better learning functions and metrics for evaluation.
+Discussed further visualisation ideas.
+Plan for next week is to fix issues with the training methodology and implement those further visualisations.
