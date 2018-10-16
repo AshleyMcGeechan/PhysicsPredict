@@ -6,20 +6,29 @@ import matplotlib.pyplot as plt
 
 train_data = []
 train_labels = []
+test_data = []
+test_labels = []
 seed = 2256
-test_split = 0.2
 
 filenames = sorted(glob.glob("training_data\*.csv"))
 
-for f in filenames:
+for run, f in enumerate(filenames, 1):
     data = np.loadtxt(f, dtype=np.float64)
     data = np.array(data).reshape(-1, 6, 2)
-    for i in range((data.shape[0]) - 3):
-        train_data.append(data[i:i+2, :, :])
-        train_labels.append(data[i+2, :, :])
+    if run % 5 == 0:
+        for i in range((data.shape[0]) - 3):
+            test_data.append(data[i:i + 2, :, :])
+            test_labels.append(data[i + 2, :, :])
+    else:
+        for i in range((data.shape[0]) - 3):
+            train_data.append(data[i:i+2, :, :])
+            train_labels.append(data[i+2, :, :])
 
 x = np.array(train_data)
 y = np.array(train_labels)
+
+test_data = np.array(test_data)
+test_labels = np.array(test_labels)
 
 np.random.seed(seed)
 indices = np.arange(len(x))
@@ -27,10 +36,8 @@ np.random.shuffle(indices)
 x = x[indices]
 y = y[indices]
 
-train_data = np.array(x[:int(len(x) * (1 - test_split))])
-train_labels = np.array(y[:int(len(x) * (1 - test_split))])
-test_data = np.array(x[int(len(x) * (1 - test_split)):])
-test_labels = np.array(y[int(len(x) * (1 - test_split)):])
+train_data = np.array(x)
+train_labels = np.array(y)
 
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(2, 6, 2)),
