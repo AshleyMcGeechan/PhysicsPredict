@@ -53,7 +53,7 @@ model.compile(keras.optimizers.Adam(),
 
 model.summary()
 
-results = model.fit(train_data, train_labels, batch_size=1000, epochs=100, validation_split=0.2, verbose=1, shuffle=True, callbacks=[keras.callbacks.EarlyStopping(monitor='val_loss', patience=20)])
+results = model.fit(train_data, train_labels, batch_size=200000, epochs=200, validation_split=0.2, verbose=1, shuffle=True, callbacks=[keras.callbacks.EarlyStopping(monitor='val_loss', patience=20)])
 
 
 def plot_history(history):

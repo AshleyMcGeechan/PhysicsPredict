@@ -105,10 +105,10 @@ class PoolSim(Framework):
             # -1 for the unknown quantity of frames in a single iteration
             dataTensor = dataTensor.reshape(-1, 6, 2)
             # Save data to a numpy file for training the neural net
-            f = open('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.npy', "w")
+            f = open('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.npy', "wb")
             np.save(f, dataTensor)
             g = open('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.csv', "w")
-            np.savetxt(g, dataTensor.flatten())
+            np.savetxt(g, dataTensor.flatten(), fmt='%s')
             # Save data into a human readable format
             with file('training_data\\' + str(config['fileName']) + str(simulationCounter) + '.txt', 'w') as outfile:
                 for framenumber, data_slice in enumerate(dataTensor, 1):

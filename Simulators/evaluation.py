@@ -111,7 +111,7 @@ class PoolSim(Framework):
 
         frameCounter += 1
 
-        if frameCounter == 3:
+        if frameCounter == 300:
             frameCounter = 0
 
         super(PoolSim, self).Step(settings)

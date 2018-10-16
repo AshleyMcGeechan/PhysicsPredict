@@ -5,7 +5,7 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 
 
-predictor = keras.models.load_model('0.05MAE.h5')
+predictor = keras.models.load_model('0.3MAE.h5')
 
 predictor.summary()
 print(predictor.get_weights())
@@ -34,7 +34,7 @@ TotalPrediction = np.array([])
 
 for i in range((TestRun.shape[0]) - 3):
     newPrediction = predictor.predict(predictionset2)
-    oldPrediction = predictionset2[0, 1, :, :].flatten().reshape(1,6,2)
+    oldPrediction = predictionset2[0, 1, :, :].flatten().reshape(1, 6, 2)
     predictionset2 = np.append(oldPrediction, newPrediction, axis=0)
     predictionset2 = np.expand_dims(predictionset2, axis=0)
     TotalPrediction = np.append(TotalPrediction, newPrediction)
