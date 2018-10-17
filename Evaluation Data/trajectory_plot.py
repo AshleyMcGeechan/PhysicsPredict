@@ -17,63 +17,179 @@ with open("TotalPrediction.csv", 'r') as f:
 
 plt.style.use('dark_background')
 
-def plotGraph(x, y, z, i):
+
+def plotGraph(x, i, label):
+
+    fig = plt.figure()
+    plt.scatter(x[1:, i, 0],
+                x[1:, i, 1],
+                c=np.arange(len(x)-1),
+                cmap='Reds_r',
+                marker='o',
+                label=label + " Ball:" + str(i+1))
+
+    plt.scatter(x[0, i, 0],
+                x[0, i, 1],
+                c='red',
+                marker='*',
+                label="Start point")
+
+    plt.legend()
+    plt.axis([0, 20, 0, 40])
+    plt.close()
+    return fig
+
+
+def plotGraphRun(x, label):
+    fig = plt.figure()
+    plt.scatter(x[1:, 0, 0],
+                x[1:, 0, 1],
+                c=np.arange(len(x)-1),
+                cmap='Reds_r',
+                marker='o',)
+
+    plt.scatter(x[1:, 1, 0],
+                x[1:, 1, 1],
+                c=np.arange(len(x)-1),
+                cmap='Purples_r',
+                marker='o',)
+
+    plt.scatter(x[1:, 2, 0],
+                x[1:, 2, 1],
+                c=np.arange(len(x)-1),
+                cmap='Blues_r',
+                marker='o',)
+
+    plt.scatter(x[1:, 3, 0],
+                x[1:, 3, 1],
+                c=np.arange(len(x)-1),
+                cmap='Greens_r',
+                marker='o',)
+
+    plt.scatter(x[1:, 4, 0],
+                x[1:, 4, 1],
+                c=np.arange(len(x)-1),
+                cmap='Oranges_r',
+                marker='o',)
+
+    plt.scatter(x[1:, 5, 0],
+                x[1:, 5, 1],
+                c=np.arange(len(x)-1),
+                cmap='YlOrBr_r',
+                marker='o',)
+
+    plt.scatter(x[0, 0, 0],
+                x[0, 0, 1],
+                c='red',
+                marker='*',
+                label="Start point. Ball 1:")
+
+    plt.scatter(x[0, 1, 0],
+                x[0, 1, 1],
+                c='purple',
+                marker='*',
+                label="Start point. Ball 2:")
+
+    plt.scatter(x[0, 2, 0],
+                x[0, 2, 1],
+                c='blue',
+                marker='*',
+                label="Start point. Ball 3:")
+
+    plt.scatter(x[0, 3, 0],
+                x[0, 3, 1],
+                c='green',
+                marker='*',
+                label="Start point. Ball 3:")
+
+    plt.scatter(x[0, 4, 0],
+                x[0, 4, 1],
+                c='orange',
+                marker='*',
+                label="Start point. Ball 5:")
+
+    plt.scatter(x[0, 5, 0],
+                x[0, 5, 1],
+                c='yellow',
+                marker='*',
+                label="Start point. Ball 6:")
+
+    plt.legend()
+    fig.suptitle(label)
+    plt.axis([0, 20, 0, 40])
+    plt.close()
+    return fig
+
+
+def plotGraphOverlayed(x, y, z, i):
 
         fig = plt.figure()
-        plt.plot(x[0, i, 0],
-                 x[0, i, 1],
-                 c='cyan',
-                 marker='*')
 
-        plt.plot(x[1:, i, 0],
-                 x[1:, i, 1],
-                 c='cyan',
-                 marker='o',
-                 alpha=0.5,
-                 label="Actual Run")
+        plt.scatter(x[1:, i, 0],
+                    x[1:, i, 1],
+                    c='cyan',
+                    marker='o',
+                    alpha=0.5,
+                    label="Actual Run. Ball:" + str(i+1))
 
-        plt.plot(y[0, i, 0],
-                 y[0, i, 1],
-                 c='yellow',
-                 marker='*')
+        plt.scatter(y[1:, i, 0],
+                    y[1:, i, 1],
+                    c='yellow',
+                    marker='o',
+                    alpha=0.5,
+                    label="One frame ahead prediction. Ball:" + str(i+1))
 
-        plt.plot(y[1:, i, 0],
-                 y[1:, i, 1],
-                 c='yellow',
-                 marker='o',
-                 alpha=0.5,
-                 label="One frame ahead prediction")
+        plt.scatter(z[1:, i, 0],
+                    z[1:, i, 1],
+                    c='magenta',
+                    marker='o',
+                    alpha=0.5,
+                    label="Prediction from initial frames. Ball:" + str(i+1))
 
-        plt.plot(z[0, i, 0],
-                 z[0, i, 1],
-                 c='magenta',
-                 marker='*')
+        plt.scatter(x[0, i, 0],
+                    x[0, i, 1],
+                    c='cyan',
+                    marker='*',
+                    label="Start point for Actual Run.")
 
-        plt.plot(z[1:, i, 0],
-                 z[1:, i, 1],
-                 c='magenta',
-                 marker='o',
-                 alpha=0.5,
-                 label="Prediction from initial frames")
+        plt.scatter(y[0, i, 0],
+                    y[0, i, 1],
+                    c='yellow',
+                    marker='*',
+                    label="Start point for One Frame Prediction.")
+
+        plt.scatter(z[0, i, 0],
+                    z[0, i, 1],
+                    c='magenta',
+                    marker='*',
+                    label="Start point for Total Prediction.")
 
         plt.axis([0, 20, 0, 40])
         plt.legend()
+        plt.close()
         return fig
 
-plot1 = plotGraph(TestRun, OneFramePrediction, TotalPrediction, 0)
-plot2 = plotGraph(TestRun, OneFramePrediction, TotalPrediction, 1)
-plot3 = plotGraph(TestRun, OneFramePrediction, TotalPrediction, 2)
-plot4 = plotGraph(TestRun, OneFramePrediction, TotalPrediction, 3)
-plot5 = plotGraph(TestRun, OneFramePrediction, TotalPrediction, 4)
-plot6 = plotGraph(TestRun, OneFramePrediction, TotalPrediction, 5)
+
+plots = []
+for i in range(6):
+    plots.append(plotGraphOverlayed(TestRun, OneFramePrediction, TotalPrediction, i))
+
+for i in range(6):
+    plots.append(plotGraph(TestRun, i, "Actual Run."))
+
+for i in range(6):
+    plots.append(plotGraph(OneFramePrediction, i, "One frame ahead prediction."))
+
+for i in range(6):
+    plots.append(plotGraph(TotalPrediction, i, "Prediction from initial frames."))
+
+plots.append(plotGraphRun(TestRun, "Actual Run."))
+plots.append(plotGraphRun(OneFramePrediction, "One frame ahead prediction."))
+plots.append(plotGraphRun(TotalPrediction, "Prediction from initial frames."))
 
 pp = PdfPages('Trajectory_Plots.pdf')
-pp.savefig(plot1)
-pp.savefig(plot2)
-pp.savefig(plot3)
-pp.savefig(plot4)
-pp.savefig(plot5)
-pp.savefig(plot6)
+for i in plots:
+    pp.savefig(i)
 
 pp.close()
 

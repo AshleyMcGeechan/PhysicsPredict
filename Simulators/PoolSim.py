@@ -76,10 +76,11 @@ class PoolSim(Framework):
 
         # Apply random impulse to ball at the start of each iteration
         if reset:
+            randInt = random.randint(3, len(self.world.bodies)-1)
             randForce = (random.randint(config['impulseBounds'][0][0], config['impulseBounds'][0][1]),
                          random.randint(config['impulseBounds'][1][0], config['impulseBounds'][1][1]))
             print(randForce)
-            self.world.bodies[2].ApplyLinearImpulse(randForce, self.world.bodies[2].worldCenter, True)
+            self.world.bodies[randInt].ApplyLinearImpulse(randForce, self.world.bodies[2].worldCenter, True)
             reset = False
 
         frame = np.array([], dtype=np.float64)
