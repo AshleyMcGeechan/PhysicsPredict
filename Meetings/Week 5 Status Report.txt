@@ -1,0 +1,12 @@
+Week 5 Status Report:
+	* Fixed the training methodology
+		* Validation and Test sets now separated by run
+		
+	* Static Trajectory Plotting module made
+		* Creates plots of simulated as well as predicted data
+		* Supports different combinations of data allowing for overlayed and faceted views
+		
+	* Experimented with model hyperparameters to solve oscillation problem
+		* Root of the problem was due to the model quickly accelerating balls and then modelling the resulting collision with walls
+		* Adjusting batch size, learning rate, dataset size, activation functions, etc all have an effect on this
+		* Models that deal better with collisions have more problems with oscillation

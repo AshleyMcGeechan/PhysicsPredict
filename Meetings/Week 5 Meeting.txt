@@ -1,0 +1,5 @@
+Week 5 Meeting:
+	* Gave demonstration on work done so far, including the Simulation itself, the predictor module, the visualiser, and the static plotting module
+	* Discussed more intermediary prediction ideas like an static algorithm that brings in real world data every x frames or a dynamic one that brings in data after a threshhold of error is passed
+	* Discussed further static plotting ideas like cumulative error over multiple frames and plotting using internal simulation data
+	* Current plans are to create variants of the basic model and use the plotting tools to evaluate and compare them to see the effects of different parameters on the output of the model as well as implementing an LSTM
