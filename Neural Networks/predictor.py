@@ -27,7 +27,7 @@ predictionset3 = np.array(predictionset3)
 
 print(predictionset2.shape)
 
-for i in range((TestRun.shape[0]) - 3):
+for i in range((TestRun.shape[0]) - 2):
     predictionset1.append(TestRun[i:i+2, :, :])
 
 predictionset1 = np.array(predictionset1)
@@ -36,7 +36,7 @@ OneFramePrediction = predictor.predict(predictionset1)
 
 TotalPrediction = np.array([])
 
-for i in range((TestRun.shape[0]) - 3):
+for i in range((TestRun.shape[0]) - 2):
     newPrediction = predictor.predict(predictionset2)
     oldPrediction = predictionset2[0, 1, :, :].flatten().reshape(1, 6, 2)
     predictionset2 = np.append(oldPrediction, newPrediction, axis=0)
@@ -46,7 +46,7 @@ for i in range((TestRun.shape[0]) - 3):
 
 SoftPrediction = np.array([])
 
-for i in range((TestRun.shape[0]) - 3):
+for i in range((TestRun.shape[0]) - 2):
     newPrediction = predictor.predict(predictionset3)
     oldPrediction = predictionset3[0, 1, :, :].flatten().reshape(1, 6, 2)
     predictionset3 = np.append(oldPrediction, newPrediction, axis=0)
@@ -55,7 +55,7 @@ for i in range((TestRun.shape[0]) - 3):
 
 
 with open('TestRun.csv', 'w') as f:
-    np.savetxt(f, TestRun[1:, :, :].flatten())
+    np.savetxt(f, TestRun[2:, :, :].flatten())
 
 with open('OneFramePrediction.csv', 'w') as f:
     np.savetxt(f, OneFramePrediction.flatten())
