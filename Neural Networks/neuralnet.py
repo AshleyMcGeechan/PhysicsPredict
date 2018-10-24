@@ -52,12 +52,13 @@ model = keras.Sequential([
     keras.layers.Flatten(input_shape=(2, 6, 2)),
     keras.layers.Dense(64, activation='relu'),
     keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(64, activation='relu'),
     keras.layers.Dense(12, activation='linear'),
     keras.layers.Reshape((6, 2), input_shape=(12,))
 ])
 
 model.compile(keras.optimizers.Adam(),
-              loss='mse',
+              loss='logcosh',
               metrics=['mse', 'mae', 'accuracy'])
 
 model.summary()
