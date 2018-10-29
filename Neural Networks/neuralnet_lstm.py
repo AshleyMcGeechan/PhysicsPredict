@@ -38,12 +38,10 @@ x = np.array(train_data, dtype=np.float64)
 y = np.array(train_labels, dtype=np.float64)
 
 x = x.reshape(-1, 1)
-y = y.reshape(-1, 1)
 
 scaler = MinMaxScaler(feature_range=(-1, 1))
 scaler = scaler.fit(x)
 x = scaler.transform(x)
-y = scaler.transform(y)
 joblib.dump(scaler, "lstm_scaler.save")
 
 x = x.reshape(-1, 1, 12)
@@ -58,30 +56,42 @@ test_labels = np.array(test_labels)
 print(x.shape, y.shape)
 
 model = keras.Sequential([
-    keras.layers.LSTM(12, input_shape=(1, 12)),
-    keras.layers.Dense(12, activation='relu')
+    keras.layers.LSTM(64, input_shape=(1, 12)),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(12, activation='relu'),
+    keras.layers.Reshape((1, 12), input_shape=(12,)),
+    keras.layers.LSTM(64, input_shape=(1, 12)),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(12, activation='relu'),
 ])
 
 model.compile(keras.optimizers.Adam(),
               loss='mse',
-              metrics=['mse', 'mae', 'accuracy'])
+              metrics=['mse', 'mae'])
 
 model.summary()
+results = []
+
+for i in range(100):
+    results.append(model.fit(x, y, batch_size=240, epochs=1, verbose=1, shuffle=False))
+    model.reset_states()
 
 
-results = model.fit(x, y, batch_size=240, epochs=50, verbose=1, shuffle=False)
-
-
-def plot_history(history):
+def plot_history(history, mae):
     plt.figure()
     plt.xlabel('Epoch')
     plt.ylabel('Mean Abs Error')
-    plt.plot(history.epoch, np.array(history.history['mean_absolute_error']),
+    plt.plot(np.arange(0, 100), np.array(mae),
              label='Train Loss')
     plt.legend()
     plt.show()
 
 
-plot_history(results)
+mae = []
+
+for i in range(100):
+    mae.append(results[i].history['mean_absolute_error'])
+
+plot_history(results, mae)
 
 model.save('PhysicsPredict.h5')
