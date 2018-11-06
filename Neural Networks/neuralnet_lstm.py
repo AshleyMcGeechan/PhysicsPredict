@@ -13,56 +13,51 @@ validation_labels = []
 test_data = []
 test_labels = []
 seed = 2256
+timestep = 2
+
+scaler = MinMaxScaler(feature_range=(0, 1))
+scaler = scaler.fit([[0], [40]])
+joblib.dump(scaler, "lstm_scaler.save")
 
 filenames = sorted(glob.glob("training_data\*.csv"))
 
 for run, f in enumerate(filenames, 1):
     data = np.loadtxt(f, dtype=np.float64)
-
+    data = data.reshape(-1, 1)
+    data = scaler.transform(data)
     data = data.reshape(-1, 12)
 
     if run % 10 == 0:
-        test_data.append(data[0:240, :])
-        test_labels.append(data[1:241, :])
+        for i in range(240):
+            test_data.append(data[i:i+timestep, :])
+            test_labels.append(data[i+timestep, :])
 
     elif run % 5 == 0:
-        validation_data.append(data[0:240, :])
-        validation_labels.append(data[1:241, :])
+        for i in range(240):
+            validation_data.append(data[i:i+timestep, :])
+            validation_labels.append(data[i+timestep, :])
 
     else:
-        train_data.append(data[0:240, :])
-        train_labels.append(data[1:241, :])
+        for i in range(240):
+            train_data.append(data[i:i+timestep, :])
+            train_labels.append(data[i+timestep, :])
 
 
-x = np.array(train_data, dtype=np.float64)
-y = np.array(train_labels, dtype=np.float64)
+train_data = np.array(train_data, dtype=np.float64).reshape(-1, timestep, 12)
+train_labels = np.array(train_labels, dtype=np.float64).reshape(-1, 12)
+# train_labels = scaler.inverse_transform(train_labels)
 
-x = x.reshape(-1, 1)
+validation_data = np.array(validation_data, dtype=np.float64).reshape(-1, timestep, 12)
+validation_labels = np.array(validation_labels, dtype=np.float64).reshape(-1, 12)
+# validation_labels = scaler.inverse_transform(validation_labels)
 
-scaler = MinMaxScaler(feature_range=(-1, 1))
-scaler = scaler.fit(x)
-x = scaler.transform(x)
-joblib.dump(scaler, "lstm_scaler.save")
-
-x = x.reshape(-1, 1, 12)
-y = y.reshape(-1, 12)
-
-validation_data = np.array(validation_data)
-validation_labels = np.array(validation_labels)
-
-test_data = np.array(test_data)
-test_labels = np.array(test_labels)
-
-print(x.shape, y.shape)
+test_data = np.array(test_data, dtype=np.float64).reshape(-1, timestep, 12)
+test_labels = np.array(test_labels, dtype=np.float64).reshape(-1, 12)
 
 model = keras.Sequential([
-    keras.layers.LSTM(64, input_shape=(1, 12)),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(12, activation='relu'),
-    keras.layers.Reshape((1, 12), input_shape=(12,)),
-    keras.layers.LSTM(64, input_shape=(1, 12)),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(12, activation='relu'),
+    keras.layers.LSTM(256, batch_input_shape=(240, timestep, 12), stateful=True, return_sequences=True),
+    keras.layers.LSTM(256, batch_input_shape=(240, timestep, 12), stateful=True),
+    keras.layers.Dense(12, activation='linear')
 ])
 
 model.compile(keras.optimizers.Adam(),
@@ -70,28 +65,22 @@ model.compile(keras.optimizers.Adam(),
               metrics=['mse', 'mae'])
 
 model.summary()
-results = []
 
-for i in range(100):
-    results.append(model.fit(x, y, batch_size=240, epochs=1, verbose=1, shuffle=False))
-    model.reset_states()
+results = model.fit(train_data, train_labels, validation_data=(validation_data, validation_labels), batch_size=240, epochs=50, verbose=1, shuffle=False, callbacks=[keras.callbacks.EarlyStopping(monitor='val_loss', patience=20)])
 
 
-def plot_history(history, mae):
+def plot_history(history):
     plt.figure()
     plt.xlabel('Epoch')
     plt.ylabel('Mean Abs Error')
-    plt.plot(np.arange(0, 100), np.array(mae),
+    plt.plot(history.epoch, np.array(history.history['mean_absolute_error']),
              label='Train Loss')
+    plt.plot(history.epoch, np.array(history.history['val_mean_absolute_error']),
+             label='Val loss')
     plt.legend()
     plt.show()
 
 
-mae = []
-
-for i in range(100):
-    mae.append(results[i].history['mean_absolute_error'])
-
-plot_history(results, mae)
+plot_history(results)
 
 model.save('PhysicsPredict.h5')
