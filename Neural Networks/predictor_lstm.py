@@ -22,18 +22,22 @@ TestRun = scaler.transform(TestRun)
 TestRun = TestRun.reshape(-1, 12)
 
 predictionset1 = []
-for i in range(240):
+for i in range(256):
     predictionset1.append(TestRun[i:i+timestep, :])
 
 predictionset1 = np.array(predictionset1).reshape(-1, timestep, 12)
-OneFramePrediction = predictor.predict_on_batch(predictionset1)
+print(predictionset1.shape)
+OneFramePrediction = predictor.predict(predictionset1, batch_size=256)
 OneFramePrediction = OneFramePrediction.reshape(-1, 1)
 OneFramePrediction = scaler.inverse_transform(OneFramePrediction)
 
 TotalPrediction = np.array([])
-predictionset2 = np.array([TestRun[0:timestep, :]]).reshape(-1, timestep, 12)
+predictionset2 = np.zeros((256, 2, 12))
+predictionset2[0, :, :] = TestRun[0:timestep, :].reshape(1, timestep, 12)
+print(predictionset2.shape)
 
-for i in range(240):
+for i in range(256):
+    print(i)
     newPrediction = predictor.predict(predictionset2)
     newPrediction = np.expand_dims(newPrediction[i, :], axis=0)
     oldPrediction = predictionset2[0, 1, :].flatten().reshape(1, 12)
