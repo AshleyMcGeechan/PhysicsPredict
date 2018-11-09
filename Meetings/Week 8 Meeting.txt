@@ -1,0 +1,6 @@
+Week 8 Meeting:
+* Discussed progress with LSTM and difficulties with improvement
+* Discussed some possible paths forward to take
+* Discussed other architectures to possibly explore
+* Discussed having solidified plans for the Christmas period
+* Plan for next week is to continue improving the LSTM and the multistep predictions

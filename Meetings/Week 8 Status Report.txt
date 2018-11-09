@@ -1,0 +1,12 @@
+Week 8 Status Report:
+* Continued working on LSTM
+    * LSTM now reaches similar performance to feed forward network for one frame predictions
+    * LSTM performs better than feed forward network for multistep predictions
+    
+* Increased granularity of graphing module
+    * Allows for graphing error at specific points in the execution
+    
+* Further experimentation with LSTM
+    * Progress on finding improvements is slow
+    
+* Fixed bugs relating to timestep, batch size, and GPU integration
