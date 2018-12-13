@@ -1,0 +1,7 @@
+Week 9 Meeting:
+* Discussed the progress made in the LSTM model, improving past the previous ceiling
+* Discussed further avenues of improvement, loss function that optimises on recurrent predictions, unraveling the LSTM
+* Discussed further areas of exploration like Convolutional Neural Networks
+* Discussed the content of the project (simulator, data set, predictors, evaluation tools)
+* Discussed what was missing from the project (concrete evaluation)
+* Current plan is to try and improve the stability of recurrent predictions and then move on to alternate models

@@ -1,0 +1,12 @@
+Week 9 Status Report:
+* Improved LSTM design
+    * More accurate one step predictions than basic model
+    * Recurrent predictions less stable but show more evidence of understanding complex dynamics
+    
+* Studied some more literature to get ideas
+    * LSTM Kalman Filter uses separate LSTM units to model noise https://arxiv.org/pdf/1708.01885.pdf
+    * One design for learning physics from videos uses an encoder-decoder framerwork https://arxiv.org/pdf/1502.04681.pdf
+
+* Started creating focused simulation test cases
+    * Previous test cases were extracted from the random simulations
+    * New test cases focus on specific interactions at specific points in the simulation
