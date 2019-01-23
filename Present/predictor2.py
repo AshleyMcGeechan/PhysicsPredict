@@ -42,14 +42,14 @@ predictionset3 = np.array(predictionset3).reshape(-1, timestep, 6)
 
 print(predictionset2.shape)
 
-for i in range(16):
+for i in range(60):
     predictionset1.append(data[i:i+timestep, :, :])
 
 predictionset1 = np.array(predictionset1).reshape(-1, timestep, 6)
 
 OneFramePrediction = predictor.predict_on_batch(predictionset1)
-OneFramePrediction = np.array(OneFramePrediction).reshape(16, 16, 6)
-OneFramePrediction = np.array(OneFramePrediction[:, 0, :]).reshape(16, 1, 6)
+OneFramePrediction = np.array(OneFramePrediction).reshape(60, 60, 6)
+OneFramePrediction = np.array(OneFramePrediction[:, 0, :]).reshape(60, 1, 6)
 
 # TotalPrediction = np.array([])
 TotalPrediction = predictor.predict(predictionset2)
@@ -89,7 +89,7 @@ TotalPrediction = np.concatenate((xdata, ydata), axis=1)
 TotalPrediction = TotalPrediction.reshape(-1, 1, 6)
 
 with open('TestRun.csv', 'w') as f:
-    np.savetxt(f, TestRun[5:21, :, :].flatten())
+    np.savetxt(f, TestRun[5:65, :, :].flatten())
 
 with open('OneFramePrediction.csv', 'w') as f:
     np.savetxt(f, OneFramePrediction.flatten())

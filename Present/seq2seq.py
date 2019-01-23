@@ -44,30 +44,30 @@ for run, f in enumerate(filenames, 1):
             validation_data.append(data[i*5:i*5+timestep, :])
             validation_data2.append(np.array([[-1, -1, -1, -1, -1, -1]]))
             validation_data2.append(data[i+timestep:i+timestep+8-1, :])
-            validation_labels.append(data[i*5+timestep:i*5+timestep+16, :])
+            validation_labels.append(data[i*5+timestep:i*5+timestep+60, :])
 
     else:
         for i in range(20):
             train_data.append(data[i*5:i*5+timestep, :])
             train_data2.append(np.array([[-1, -1, -1, -1, -1, -1]]))
             train_data2.append(data[i+timestep:i+timestep+8-1, :])
-            train_labels.append(data[i*5+timestep:i*5+timestep+16, :])
+            train_labels.append(data[i*5+timestep:i*5+timestep+60, :])
 
 
 train_data = np.array(train_data, dtype=np.float64).reshape(-1, timestep, 6)
 # train_data2 = np.array(train_data, dtype=np.float64).reshape(-1, 8, 6)
-train_labels = np.array(train_labels, dtype=np.float64).reshape(-1, 16, 6)
+train_labels = np.array(train_labels, dtype=np.float64).reshape(-1, 60, 6)
 
 validation_data = np.array(validation_data, dtype=np.float64).reshape(-1, timestep, 6)
 # validation_data2 = np.array(validation_data, dtype=np.float64).reshape(-1, 8, 6)
-validation_labels = np.array(validation_labels, dtype=np.float64).reshape(-1, 16, 6)
+validation_labels = np.array(validation_labels, dtype=np.float64).reshape(-1, 60, 6)
 
 batch = train_data.shape[0]
 
 
 def stepDecay(epoch, lr):
     if epoch % 50 == 0:
-        return 0.001
+        return lr * 10
     return lr
 
 
@@ -167,13 +167,11 @@ def define_models(n_input, n_output, n_units):
 # ])
 
 model = keras.Sequential([
-    keras.layers.Dense(60, activation='relu'),
-    keras.layers.Dense(120, activation='relu'),
-    keras.layers.LSTM(100, return_sequences=False),
-    keras.layers.Dense(100, activation='relu'),
-    keras.layers.Dense(96, activation='relu'),
-    keras.layers.Dense(96, activation='linear'),
-    keras.layers.Reshape((16, 6)),
+    keras.layers.Dense(200, activation='relu'),
+    keras.layers.LSTM(200, return_sequences=True),
+    keras.layers.LSTM(200, return_sequences=False),
+    keras.layers.Dense(360, activation='linear'),
+    keras.layers.Reshape((60, 6)),
 ])
 
 
@@ -188,10 +186,10 @@ model.compile(keras.optimizers.Adam(lr=0.001, clipnorm=1.0),
               metrics=['mse', 'mae'])
 
 lrate = keras.callbacks.LearningRateScheduler(stepDecay)
-early = keras.callbacks.EarlyStopping(monitor='val_loss', patience=49)
+early = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
 reduction = keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.9, patience=1)
 
-results = model.fit(train_data, train_labels, validation_data=(validation_data, validation_labels), batch_size=128, epochs=1000, verbose=1, shuffle=True, callbacks=[early, lrate, reduction])
+results = model.fit(train_data, train_labels, validation_data=(validation_data, validation_labels), batch_size=128, epochs=1000, verbose=1, shuffle=True, callbacks=[early, reduction])
 # results = model2.fit([train_data, train_data2], train_labels, validation_data=([validation_data, validation_data2], validation_labels), batch_size=64, epochs=100, verbose=1, shuffle=True, callbacks=[lrate])
 
 
