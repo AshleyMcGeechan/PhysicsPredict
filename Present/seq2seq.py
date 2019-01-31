@@ -27,27 +27,33 @@ yscaler = MinMaxScaler(feature_range=(0, 1))
 yscaler = yscaler.fit([[1], [19]])
 joblib.dump(yscaler, "lstm_yscaler.save")
 
-filenames = sorted(glob.glob("training_data\ThreeBalls\*.csv"))
+circlescaler = MinMaxScaler(feature_range=(0, 1))
+circlescaler = circlescaler.fit([[1], [16]])
+joblib.dump(circlescaler, "lstm_circlescaler.save")
+
+filenames = sorted(glob.glob("training_data\Circular\*.csv"))
 
 for run, f in enumerate(filenames, 1):
     data = np.loadtxt(f, dtype=np.float64)
-    data = data.reshape(-1, 2)
-    xdata = xscaler.transform(data[:, ::2])
-    ydata = yscaler.transform(data[:, 1::2])
-    xdata = xdata.reshape(-1, 1)
-    ydata = ydata.reshape(-1, 1)
-    data = np.concatenate((xdata, ydata), axis=1)
+    data = data.reshape(-1, 1)
+    data = circlescaler.transform(data)
+    # data = data.reshape(-1, 2)
+    # xdata = xscaler.transform(data[:, ::2])
+    # ydata = yscaler.transform(data[:, 1::2])
+    # xdata = xdata.reshape(-1, 1)
+    # ydata = ydata.reshape(-1, 1)
+    # data = np.concatenate((xdata, ydata), axis=1)
     data = data.reshape(-1, 6)
 
     if (random.randint(0, 10)) == 0:
-        for i in range(20):
+        for i in range(10):
             validation_data.append(data[i*5:i*5+timestep, :])
             validation_data2.append(np.array([[-1, -1, -1, -1, -1, -1]]))
             validation_data2.append(data[i+timestep:i+timestep+8-1, :])
             validation_labels.append(data[i*5+timestep:i*5+timestep+60, :])
 
     else:
-        for i in range(20):
+        for i in range(10):
             train_data.append(data[i*5:i*5+timestep, :])
             train_data2.append(np.array([[-1, -1, -1, -1, -1, -1]]))
             train_data2.append(data[i+timestep:i+timestep+8-1, :])
@@ -59,6 +65,7 @@ train_data = np.array(train_data, dtype=np.float64).reshape(-1, timestep, 6)
 train_labels = np.array(train_labels, dtype=np.float64).reshape(-1, 60, 6)
 
 validation_data = np.array(validation_data, dtype=np.float64).reshape(-1, timestep, 6)
+
 # validation_data2 = np.array(validation_data, dtype=np.float64).reshape(-1, 8, 6)
 validation_labels = np.array(validation_labels, dtype=np.float64).reshape(-1, 60, 6)
 
@@ -167,9 +174,12 @@ def define_models(n_input, n_output, n_units):
 # ])
 
 model = keras.Sequential([
-    keras.layers.Dense(200, activation='relu'),
-    keras.layers.LSTM(200, return_sequences=True),
-    keras.layers.LSTM(200, return_sequences=False),
+    keras.layers.Dense(240, activation='relu'),
+    keras.layers.Dense(240, activation='relu'),
+    keras.layers.LSTM(240, return_sequences=True),
+    keras.layers.LSTM(240, return_sequences=False),
+    keras.layers.Dense(240, activation='relu'),
+    keras.layers.Dense(240, activation='relu'),
     keras.layers.Dense(360, activation='linear'),
     keras.layers.Reshape((60, 6)),
 ])
@@ -207,7 +217,7 @@ def plot_history(history):
 
 plot_history(results)
 
-model.save('MLP.h5')
+model.save('LSTM_Circle.h5')
 # model2.save('Seq2Seq.h5')
 # encoder.save('encoder.h5')
 # decoder.save('decoder.h5')
